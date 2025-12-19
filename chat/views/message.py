@@ -7,15 +7,15 @@ from chat.serializers import UserMessageSerializer, MessagePairSerializer
 from chat.ollama import build_context, chat_with_ollama
 
 
-class MessageListView(generics.ListAPIView):
-    serializer_class = MessagePairSerializer
-    permission_classes = [IsAuthenticated]
+# class MessageListView(generics.ListAPIView):
+#     serializer_class = MessagePairSerializer
+#     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return UserMessage.objects.filter(
-            conversation__id=self.kwargs['conversation_id'],
-            conversation__user=self.request.user
-        ).order_by('created_at')
+#     def get_queryset(self):
+#         return UserMessage.objects.filter(
+#             conversation__id=self.kwargs['conversation_id'],
+#             conversation__user=self.request.user
+#         ).order_by('created_at')
 
 
 class MessageDetailView(generics.DestroyAPIView, generics.UpdateAPIView):

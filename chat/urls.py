@@ -4,7 +4,7 @@ from .views.conversation import (
     ConversationDetailView
 )
 from .views.message import (
-    MessageListView,
+    # MessageListView,
     MessageDetailView
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -16,10 +16,10 @@ urlpatterns = [
     path("conversations/", ConversationListCreateView.as_view()),
     path("conversations/<int:pk>/", ConversationDetailView.as_view()),
 
-    path(
-        "conversations/<int:conversation_id>/messages/",
-        MessageListView.as_view()
-    ),
+    # path(
+    #     "conversations/<int:conversation_id>/messages/",
+    #     MessageListView.as_view()
+    # ),
     path(
         "conversations/<int:conversation_id>/messages/<int:pk>/",
         MessageDetailView.as_view()
