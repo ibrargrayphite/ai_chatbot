@@ -29,6 +29,12 @@ class ConversationListCreateView(generics.ListCreateAPIView):
 
 class ConversationDetailView(APIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = ConversationSerializer
+
+    def get_serializer_class(self):
+        if getattr(self, 'request', None) and self.request.method == 'POST':
+            return ChatRequestSerializer
+        return ConversationSerializer
 
     def get_object(self, pk, user):
         return Conversation.objects.filter(id=pk, user=user).first()

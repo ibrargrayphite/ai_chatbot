@@ -21,6 +21,7 @@ from chat.ollama import build_context, chat_with_ollama
 class MessageDetailView(generics.DestroyAPIView, generics.UpdateAPIView):
     serializer_class = UserMessageSerializer
     permission_classes = [IsAuthenticated]
+    http_method_names = ['put', 'delete', 'head', 'options']
 
     def get_queryset(self):
         return UserMessage.objects.filter(

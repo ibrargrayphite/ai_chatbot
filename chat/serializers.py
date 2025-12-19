@@ -9,9 +9,11 @@ class AssistantMessageSerializer(serializers.ModelSerializer):
 
 
 class UserMessageSerializer(serializers.ModelSerializer):
+    message = serializers.CharField(source='content')
+
     class Meta:
         model = UserMessage
-        fields = ['id', 'content', 'created_at']
+        fields = ['id', 'message', 'created_at']
 
 
 class MessagePairSerializer(serializers.ModelSerializer):
@@ -45,4 +47,4 @@ class ConversationSerializer(serializers.ModelSerializer):
 
 class ChatRequestSerializer(serializers.Serializer):
     message = serializers.CharField(required=True)
-    conversation_id = serializers.IntegerField(required=False)
+    # conversation_id = serializers.IntegerField(required=False)
