@@ -9,7 +9,7 @@ from chat.serializers import (
     MessagePairSerializer,
     ChatRequestSerializer
 )
-from chat.ollama import build_context, chat_with_ollama
+from chat.ollama import build_context, chat_with_ollama, generate_title_from_conversation
 
 
 class ConversationListCreateView(generics.ListCreateAPIView):
@@ -23,7 +23,7 @@ class ConversationListCreateView(generics.ListCreateAPIView):
         # create conversation, then if no title provided auto-generate one
         conversation = serializer.save(user=self.request.user)
         if not conversation.title:
-            conversation.title = f"Conversation {conversation.id}"
+            conversation.title = f"New Chat"
             conversation.save()
 
 
@@ -96,5 +96,16 @@ class ConversationDetailView(APIView):
             user_message=user_msg,
             content=reply
         )
+
+        try:
+            msg_count = conversation.user_messages.count()
+        except Exception:
+            msg_count = None
+
+        if (msg_count == 1) and (not conversation.title or conversation.title.startswith("New Chat") or conversation.title.strip() == ""):
+            new_title = generate_title_from_conversation(reply)
+            if new_title:
+                conversation.title = new_title
+                conversation.save()
 
         return Response({"reply": reply, "user_message_id": user_msg.id}, status=status.HTTP_201_CREATED)
