@@ -24,6 +24,7 @@ class MessageDetailView(generics.DestroyAPIView, generics.UpdateAPIView):
 
     def get_queryset(self):
         return UserMessage.objects.filter(
+            conversation__id=self.kwargs['conversation_id'],
             conversation__user=self.request.user
         )
 

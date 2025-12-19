@@ -1,5 +1,5 @@
 GET http://localhost:8000/api/conversations/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTQwNzgyLCJpYXQiOjE3NjYxMzcxODIsImp0aSI6IjA5ZjUwNjAxMjBmZjRmYTg4NmJhZWQ4NzQ5MGQ2ZDlmIiwidXNlcl9pZCI6IjEifQ.ubWwYx2oe7V5noZrdl2Tphg3u1N7XRG4XywJDlODXL0
 
 ###
 POST http://localhost:8000/api/conversations/ HTTP/1.1
@@ -20,12 +20,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 }
 
 ###
-GET http://localhost:8000/api/conversations/17/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+GET http://localhost:8000/api/conversations/18/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTQwNzgyLCJpYXQiOjE3NjYxMzcxODIsImp0aSI6IjA5ZjUwNjAxMjBmZjRmYTg4NmJhZWQ4NzQ5MGQ2ZDlmIiwidXNlcl9pZCI6IjEifQ.ubWwYx2oe7V5noZrdl2Tphg3u1N7XRG4XywJDlODXL0
 
 ###
 DELETE http://localhost:8000/api/conversations/16/ HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+
 ###
 POST http://localhost:8000/api/conversations/18/ HTTP/1.1
 Content-Type: application/json
@@ -36,18 +37,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 }
 
 ###
-PUT http://localhost:8000/api/conversations/11/messages/3/ HTTP/1.1
+PUT http://localhost:8000/api/conversations/1/messages/2/ HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTQwNzgyLCJpYXQiOjE3NjYxMzcxODIsImp0aSI6IjA5ZjUwNjAxMjBmZjRmYTg4NmJhZWQ4NzQ5MGQ2ZDlmIiwidXNlcl9pZCI6IjEifQ.ubWwYx2oe7V5noZrdl2Tphg3u1N7XRG4XywJDlODXL0
 
 {
-    "role": "user",
     "content": "What is DRF?"
 }
 
 ###
-DELETE http://localhost:8000/api/conversations/17/messages/3/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+DELETE http://localhost:8000/api/conversations/18/messages/4/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTQwNzgyLCJpYXQiOjE3NjYxMzcxODIsImp0aSI6IjA5ZjUwNjAxMjBmZjRmYTg4NmJhZWQ4NzQ5MGQ2ZDlmIiwidXNlcl9pZCI6IjEifQ.ubWwYx2oe7V5noZrdl2Tphg3u1N7XRG4XywJDlODXL0
 
 ###
 POST http://127.0.0.1:8000/api/token/ HTTP/1.1
