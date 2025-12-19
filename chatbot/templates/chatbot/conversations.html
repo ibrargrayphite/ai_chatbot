@@ -1,0 +1,39 @@
+{% extends 'chatbot/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1>Your Conversations</h1>
+  <form method="post" class="d-flex" style="gap:8px;">
+    {% csrf_token %}
+    {{ form.title }}
+    <button class="btn btn-success" type="submit">New Conversation</button>
+  </form>
+</div>
+
+{% if conversations %}
+  <div class="list-group">
+    {% for conv in conversations %}
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <a href="{% url 'conversation_detail' pk=conv.id %}"><strong>{{ conv.title }}</strong></a>
+          <div class="text-muted small">Created: {{ conv.created_at }}</div>
+        </div>
+        <div>
+          <form method="post" action="{% url 'conversation_delete' pk=conv.id %}" style="display:inline">
+            {% csrf_token %}
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+          <form method="post" action="{% url 'conversation_edit' pk=conv.id %}" style="display:inline">
+            {% csrf_token %}
+            <input type="hidden" name="title" value="{{ conv.title }}">
+            <button class="btn btn-sm btn-secondary">Edit</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No conversations yet. Create one using the form above.</p>
+{% endif %}
+
+{% endblock %}

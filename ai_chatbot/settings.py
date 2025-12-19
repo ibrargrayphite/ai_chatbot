@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'chat',
     'drf_spectacular',
-
+    'chatbot',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +146,6 @@ SIMPLE_JWT = {
     # Other settings like rotating refresh tokens can also be added here
     "ROTATE_REFRESH_TOKENS": True,
 }
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
