@@ -1,0 +1,11 @@
+{% extends 'chatbot/base.html' %}
+
+{% block content %}
+  <h3>Edit Message</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.content }}
+    <button class="btn btn-primary mt-2">Save</button>
+    <a class="btn btn-secondary mt-2" href="{% url 'conversation_detail' pk=conversation.id %}">Cancel</a>
+  </form>
+{% endblock %}

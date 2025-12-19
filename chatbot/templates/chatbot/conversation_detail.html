@@ -1,0 +1,48 @@
+{% extends 'chatbot/base.html' %}
+
+{% block content %}
+<h2>{{ conversation.title }}</h2>
+<div class="mb-3">
+  <form method="post" action="{% url 'conversation_edit' pk=conversation.id %}" class="d-flex">
+    {% csrf_token %}
+    {{ conv_form.title }}
+    <button class="btn btn-primary ms-2">Save Title</button>
+  </form>
+</div>
+
+<div class="mb-4">
+  <h4>Messages</h4>
+  {% for msg in messages %}
+    <div class="card mb-2">
+      <div class="card-body">
+        <p class="mb-1"><strong>You:</strong> {{ msg.content }}</p>
+        {% if msg.assistant_reply %}
+          <p class="mb-1"><strong>Assistant:</strong> {{ msg.assistant_reply.content }}</p>
+        {% else %}
+          <p class="text-muted">(no assistant reply)</p>
+        {% endif %}
+        <div class="d-flex" style="gap:8px">
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'message_edit' conversation.id msg.id %}">Edit</a>
+          <form method="post" action="{% url 'message_delete' conversation.id msg.id %}">
+            {% csrf_token %}
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No messages yet.</p>
+  {% endfor %}
+</div>
+
+<div>
+  <h4>New Message</h4>
+  <form method="post">
+    {% csrf_token %}
+    {{ msg_form.content }}
+    <input type="hidden" name="create_message" value="1">
+    <button class="btn btn-success mt-2">Send</button>
+  </form>
+</div>
+
+{% endblock %}
