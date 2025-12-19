@@ -3,8 +3,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from chat.models import Conversation, Message
-from chat.serializers import ConversationSerializer, MessageSerializer, ChatRequestSerializer
+from chat.models import Conversation, UserMessage, AssistantMessage
+from chat.serializers import (
+    ConversationSerializer,
+    MessagePairSerializer,
+    ChatRequestSerializer
+)
 from chat.ollama import build_context, chat_with_ollama
 
 
@@ -35,8 +39,8 @@ class ConversationDetailView(APIView):
         if not conversation:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        msgs = conversation.messages.order_by('created_at')
-        serializer = MessageSerializer(msgs, many=True)
+        msgs = conversation.user_messages.order_by('created_at')
+        serializer = MessagePairSerializer(msgs, many=True)
         return Response(serializer.data)
 
     def put(self, request, pk):
@@ -73,9 +77,8 @@ class ConversationDetailView(APIView):
         message = serializer.validated_data["message"]
 
         # create user message
-        Message.objects.create(
+        user_msg = UserMessage.objects.create(
             conversation=conversation,
-            role="user",
             content=message
         )
 
@@ -83,10 +86,9 @@ class ConversationDetailView(APIView):
         context = build_context(conversation)
         reply = chat_with_ollama(context)
 
-        Message.objects.create(
-            conversation=conversation,
-            role="assistant",
+        AssistantMessage.objects.create(
+            user_message=user_msg,
             content=reply
         )
 
-        return Response({"reply": reply}, status=status.HTTP_201_CREATED)
+        return Response({"reply": reply, "user_message_id": user_msg.id}, status=status.HTTP_201_CREATED)

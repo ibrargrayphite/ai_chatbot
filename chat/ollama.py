@@ -24,6 +24,8 @@ def chat_with_ollama(messages):
 
 
 def build_context(conversation):
+    from chat.models import UserMessage
+
     messages = []
 
     messages.append({
@@ -31,11 +33,14 @@ def build_context(conversation):
         "content": SYSTEM_PROMPT
     })
 
-    qs = conversation.messages.order_by('-created_at')[:12]
-    for msg in reversed(qs):
-        messages.append({
-            "role": msg.role,
-            "content": msg.content
-        })
+    # take recent user messages and their assistant replies
+    qs = UserMessage.objects.filter(
+        conversation=conversation).order_by('-created_at')[:12]
+    for um in reversed(qs):
+        messages.append({"role": "user", "content": um.content})
+        assistant = getattr(um, 'assistant_reply', None)
+        if assistant:
+            messages.append(
+                {"role": "assistant", "content": assistant.content})
 
     return messages

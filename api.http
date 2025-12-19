@@ -7,46 +7,46 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
 
 {
+    "title": "FastAPI vs Django"
+}
+
+###
+PUT http://localhost:8000/api/conversations/16/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+
+{
     "title": "Hello World"
 }
 
 ###
-PUT http://localhost:8000/api/conversations/13/ HTTP/1.1
+GET http://localhost:8000/api/conversations/17/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+
+###
+DELETE http://localhost:8000/api/conversations/16/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
+###
+POST http://localhost:8000/api/conversations/18/ HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
 
 {
-    "title": "Hello World2"
+    "message": "What is FastAPI?"
 }
 
 ###
-GET http://localhost:8000/api/conversations/13/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
-
-###
-DELETE http://localhost:8000/api/conversations/15/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
-###
-POST http://localhost:8000/api/conversations/13/ HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
-
-{
-    "message": "How are you?"
-}
-
-###
-PUT http://localhost:8000/api/conversations/11/messages/22/ HTTP/1.1
+PUT http://localhost:8000/api/conversations/11/messages/3/ HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
 
 {
     "role": "user",
-    "content": "What are you?"
+    "content": "What is DRF?"
 }
 
 ###
-DELETE http://localhost:8000/api/conversations/11/messages/21/ HTTP/1.1
+DELETE http://localhost:8000/api/conversations/17/messages/3/ HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY2MTI5NjcyLCJpYXQiOjE3NjYxMjYwNzIsImp0aSI6IjhiOTI2YTM0NGYxZTQ2NmE5MzBhZTllNmM0YzExMmQzIiwidXNlcl9pZCI6IjEifQ.1bI1vb6dRJ7dEvhMYtIago6Roo92Oaryz_bAWDhEdCc
 
 ###

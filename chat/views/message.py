@@ -2,33 +2,33 @@ from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from chat.models import Message, Conversation
-from chat.serializers import MessageSerializer
+from chat.models import UserMessage, AssistantMessage
+from chat.serializers import UserMessageSerializer, MessagePairSerializer
 from chat.ollama import build_context, chat_with_ollama
 
 
 class MessageListView(generics.ListAPIView):
-    serializer_class = MessageSerializer
+    serializer_class = MessagePairSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Message.objects.filter(
+        return UserMessage.objects.filter(
             conversation__id=self.kwargs['conversation_id'],
             conversation__user=self.request.user
         ).order_by('created_at')
 
 
 class MessageDetailView(generics.DestroyAPIView, generics.UpdateAPIView):
-    serializer_class = MessageSerializer
+    serializer_class = UserMessageSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Message.objects.filter(
+        return UserMessage.objects.filter(
             conversation__user=self.request.user
         )
 
     def update(self, request, *args, **kwargs):
-        # Update message content. If it's a user message, generate new AI reply.
+        # Update a user message and regenerate/update the assistant reply
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
 
@@ -37,16 +37,18 @@ class MessageDetailView(generics.DestroyAPIView, generics.UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        # If updated message is from user, produce new assistant reply
-        if instance.role == 'user':
-            conversation = instance.conversation
-            context = build_context(conversation)
-            reply = chat_with_ollama(context)
-            Message.objects.create(
-                conversation=conversation,
-                role='assistant',
-                content=reply
-            )
-            return Response({"reply": reply}, status=status.HTTP_200_OK)
+        # regenerate assistant reply for the conversation context
+        conversation = instance.conversation
+        context = build_context(conversation)
+        reply = chat_with_ollama(context)
 
-        return Response(serializer.data)
+        # update existing assistant reply or create new one linked to this user message
+        try:
+            assistant = instance.assistant_reply
+            assistant.content = reply
+            assistant.save()
+        except AssistantMessage.DoesNotExist:
+            AssistantMessage.objects.create(
+                user_message=instance, content=reply)
+
+        return Response({"reply": reply}, status=status.HTTP_200_OK)

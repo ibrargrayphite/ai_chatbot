@@ -1,11 +1,31 @@
 from rest_framework import serializers
-from .models import Conversation, Message
+from .models import Conversation, UserMessage, AssistantMessage
 
 
-class MessageSerializer(serializers.ModelSerializer):
+class AssistantMessageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Message
-        fields = ['id', 'role', 'content', 'created_at']
+        model = AssistantMessage
+        fields = ['id', 'content', 'created_at']
+
+
+class UserMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserMessage
+        fields = ['id', 'content', 'created_at']
+
+
+class MessagePairSerializer(serializers.ModelSerializer):
+    assistant = serializers.SerializerMethodField()
+
+    class Meta:
+        model = UserMessage
+        fields = ['id', 'content', 'created_at', 'assistant']
+
+    def get_assistant(self, obj):
+        assistant = getattr(obj, 'assistant_reply', None)
+        if assistant:
+            return AssistantMessageSerializer(assistant).data
+        return None
 
 
 class ConversationSerializer(serializers.ModelSerializer):
@@ -16,8 +36,11 @@ class ConversationSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'created_at', 'last_message']
 
     def get_last_message(self, obj):
-        msg = obj.messages.order_by('-created_at').first()
-        return msg.content if msg else None
+        last_user = obj.user_messages.order_by('-created_at').first()
+        if not last_user:
+            return None
+        assistant = getattr(last_user, 'assistant_reply', None)
+        return assistant.content if assistant else last_user.content
 
 
 class ChatRequestSerializer(serializers.Serializer):
