@@ -44,3 +44,20 @@ def build_context(conversation):
                 {"role": "assistant", "content": assistant.content})
 
     return messages
+
+
+def generate_title_from_conversation(assistant_reply):
+    try:
+        message = f"""Provide a very short title (one line, max 60 characters).
+                that summarizes the conversation. Reply with the title only.
+                Conversation summary: {assistant_reply}"""
+
+        title = chat_with_ollama([
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": message}
+        ])
+        if not title:
+            raise ValueError("empty title from model")
+        return title.strip()[:60]
+    except Exception as e:
+        return None

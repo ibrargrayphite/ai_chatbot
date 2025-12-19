@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 
 from chat.models import Conversation, UserMessage, AssistantMessage
-from chat.ollama import build_context, chat_with_ollama
+from chat.ollama import build_context, chat_with_ollama, generate_title_from_conversation
 from .forms import ConversationForm, UserMessageForm
 
 
@@ -40,7 +40,7 @@ def conversations_list(request):
             conv.user = user
             conv.save()
             if not conv.title:
-                conv.title = f"Conversation {conv.id}"
+                conv.title = f"New Chat"
                 conv.save()
             return redirect('conversation_detail', pk=conv.id)
     else:
@@ -70,6 +70,16 @@ def conversation_detail(request, pk):
             reply = chat_with_ollama(context)
             AssistantMessage.objects.create(
                 user_message=user_msg, content=reply)
+            try:
+                msg_count = conv.user_messages.count()
+            except Exception:
+                msg_count = None
+
+            if (msg_count == 1) and (not conv.title or conv.title.startswith("New Chat") or conv.title.strip() == ""):
+                new_title = generate_title_from_conversation(reply)
+                if new_title:
+                    conv.title = new_title
+                    conv.save()
             return redirect('conversation_detail', pk=pk)
     else:
         msg_form = UserMessageForm()
