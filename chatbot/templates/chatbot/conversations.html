@@ -23,11 +23,11 @@
             {% csrf_token %}
             <button class="btn btn-sm btn-danger">Delete</button>
           </form>
-          <form method="post" action="{% url 'conversation_edit' pk=conv.id %}" style="display:inline">
-            {% csrf_token %}
-            <input type="hidden" name="title" value="{{ conv.title }}">
-            <button class="btn btn-sm btn-secondary">Edit</button>
-          </form>
+          {% comment %} <form method="post" action="{% url 'conversation_edit' pk=conv.id %}" style="display:inline"> {% endcomment %}
+            {% comment %} {% csrf_token %} {% endcomment %}
+            {% comment %} <input type="hidden" name="title" value="{{ conv.title }}"> {% endcomment %}
+            <a href="{% url 'conversation_edit' pk=conv.id %}"><button class="btn btn-sm btn-secondary">Edit</button></a>
+          {% comment %} </form> {% endcomment %}
         </div>
       </div>
     {% endfor %}
