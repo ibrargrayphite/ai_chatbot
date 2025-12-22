@@ -21,7 +21,9 @@ class UserMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"UserMessage {self.id} ({self.conversation_id})"
+        if len(self.content) <= 50:
+            return self.content
+        return f"{self.content[:50]}..."
 
 
 class AssistantMessage(models.Model):
