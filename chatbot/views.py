@@ -103,7 +103,12 @@ def conversation_edit(request, pk):
         if form.is_valid():
             form.save()
             return redirect('conversations')
-    return redirect('conversations')
+    else:
+        form = ConversationForm(instance=conv)
+    return render(request, 'chatbot/conversation_edit.html', {
+        'conversation': conv,
+        'conv_form': form,
+    })
 
 
 @login_required
